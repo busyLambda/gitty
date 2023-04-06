@@ -15,7 +15,9 @@ defmodule GittyWeb.FrontendController do
     req = Poison.decode!(response.body)
 
     contents = Map.get(req, "contents")
+    latest_commit = Map.get(req, "latest_commit")
+    path = Map.get(req, "path")
 
-    render(conn, :blob, contents: contents)
+    render(conn, :blob, contents: contents, latest_commit: latest_commit, path: path)
   end
 end
