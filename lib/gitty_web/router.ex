@@ -17,13 +17,13 @@ defmodule GittyWeb.Router do
   scope "/", GittyWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    get "/", FrontendController, :index
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", GittyWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", GittyWeb do
+    pipe_through :api
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:gitty, :dev_routes) do
