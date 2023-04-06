@@ -18,6 +18,8 @@ defmodule GittyWeb.Router do
     pipe_through :browser
 
     get "/", FrontendController, :index
+    get "/:user/:repo/", FrontendController, :repository
+    get "/:user/:repo/:branch/tree/*path", FrontendController, :tree
   end
 
   # Other scopes may use custom stacks.
