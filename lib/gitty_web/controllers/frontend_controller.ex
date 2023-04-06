@@ -9,7 +9,7 @@ defmodule GittyWeb.FrontendController do
     render(conn, :repo, user: user, repo: repo)
   end
 
-  def tree(conn, %{"user" => user, "repo" => repo, "branch" => branch, "path" => path}) do
+  def blob(conn, %{"user" => user, "repo" => repo, "branch" => branch, "path" => path}) do
     path = Enum.join(path, "/")
     url = "http://localhost:6789/#{user}/#{repo}/#{branch}/blob/#{path}"
     response = HTTPoison.get!(url)
@@ -20,5 +20,14 @@ defmodule GittyWeb.FrontendController do
     path = Map.get(req, "path")
 
     render(conn, :blob, contents: contents, latest_commit: latest_commit, path: path)
+  end
+
+  def tree(conn, %{"user" => user, "repo" => repo, "branch" => branch, "path" => path}) do
+    path = Enum.join(path, "/")
+    url = "http://localhost:6789/#{user}/#{repo}/#{branch}/tree/#{path}"
+    response = HTTPoison.get!(url)
+    req = Poison.decode!(response.body)
+
+    render(conn, :tree, tree_entries: req)
   end
 end
