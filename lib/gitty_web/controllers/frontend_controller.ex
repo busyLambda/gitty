@@ -10,6 +10,7 @@ defmodule GittyWeb.FrontendController do
   end
 
   def tree(conn, %{"user" => user, "repo" => repo, "branch" => branch, "path" => path}) do
+    path = Enum.join(path, "/")
     url = "http://localhost:6789/#{user}/#{repo}/#{branch}/blob/#{path}"
     response = HTTPoison.get!(url)
     req = Poison.decode!(response.body)
