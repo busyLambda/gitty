@@ -1,14 +1,22 @@
 <%= for entry <- @tree_entries do %>
-  <div class="flex justify-between p-2 rounded-md bg-zinc-300">
-    <div>
+  <div class="flex justify-between p-2 my-1 rounded-md bg-zinc-300">
+    <a href={
+        "http://localhost:5000/#{@user}/#{@repo}/#{@branch}/#{
+            if Map.get(entry, "entry_type") == to_string("Blob") do
+                "blob"
+            else
+                "tree"
+            end
+        }/#{@path}/#{Map.get(entry, "name")}"
+    }>
       <%= Map.get(entry, "name") %>
-    </div>
-    <a href={"http://localhost:5000/commits/#{Map.get(entry, "latest_commit_id")}"} >
-        <%= "#{String.slice(Map.get(entry, "latest_commit_msg"), 0..20)}" %>
-        <%= #IO.puts "#{entry}" %>
+    </a>
+    <a href={"http://localhost:5000/commits/#{Map.get(entry, "latest_commit_id")}"}>
+      <%= "#{String.slice(Map.get(entry, "latest_commit_msg"), 0..20)}" %>
+      <%= # IO.puts "#{entry}" %>
     </a>
     <div>
-        <%= Map.get(entry, "") %>
+      <%= Map.get(entry, "") %>
     </div>
   </div>
 <% end %>

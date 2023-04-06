@@ -28,6 +28,6 @@ defmodule GittyWeb.FrontendController do
     response = HTTPoison.get!(url)
     req = Poison.decode!(response.body)
 
-    render(conn, :tree, tree_entries: req)
+    render(conn, :tree, tree_entries: req, path: path, user: user, repo: repo, branch: branch)
   end
 end
