@@ -16,7 +16,10 @@
       <%= # IO.puts "#{entry}" %>
     </a>
     <div>
-      <%= Map.get(entry, "") %>
+      <%=
+        {_, datetime} = DateTime.from_unix(Map.get(entry, "latest_commit_time"))
+        DateTime.to_date(datetime)
+       %>
     </div>
   </div>
 <% end %>
