@@ -1,6 +1,12 @@
 defmodule GittyWeb.GitFs do
   use Phoenix.Component
 
+  attr :tree_entries, :list
+  attr :user, :string
+  attr :repo, :string
+  attr :branch, :string
+  attr :path, :string
+
   def tree(assigns) do
     ~H"""
     <%= for entry <- @tree_entries do %>
