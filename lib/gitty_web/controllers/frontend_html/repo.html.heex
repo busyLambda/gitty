@@ -1,9 +1,23 @@
 <div class="p-2 text-white rounded-lg bg-slate-600">
-    <a class="text-blue-300 underline" href={"http://localhost:5000/#{@user}"}>
-        <%= @user %>
-    </a>
-    <span>/</span>
-    <a class="text-blue-300 underline" href={"http://localhost:5000/#{@user}/#{@repo}"}>
-        <%= @repo %>
-    </a>
+  <a class="text-blue-300 underline" href={"http://localhost:5000/#{@user}"}>
+    <%= @user %>
+  </a>
+  <span>/</span>
+  <a class="text-blue-300 underline" href={"http://localhost:5000/#{@user}/#{@repo}"}>
+    <%= @repo %>
+  </a>
+</div>
+
+<div class="flex">
+  <div class="w-[70%] bg-surface">
+    <GittyWeb.GitFs.tree
+      tree_entries={@tree_entries}
+      user={@user}
+      repo={@repo}
+      branch={"master"}
+      path={""}
+    />
+  </div>
+
+  <div class="w-[30%]"></div>
 </div>

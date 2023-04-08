@@ -6,7 +6,12 @@ defmodule GittyWeb.FrontendController do
   end
 
   def repository(conn, %{"user" => user, "repo" => repo}) do
-    render(conn, :repo, user: user, repo: repo)
+    url = "http://localhost:6789/#{user}/#{repo}/master/tree/"
+    response = HTTPoison.get!(url)
+
+    req = Jason.decode!(response.body)
+
+    render(conn, :repo, user: user, repo: repo, tree_entries: req)
   end
 
   def blob(conn, %{"user" => user, "repo" => repo, "branch" => branch, "path" => path}) do
@@ -27,7 +32,6 @@ defmodule GittyWeb.FrontendController do
     url = "http://localhost:6789/#{user}/#{repo}/#{branch}/tree/#{path}"
     response = HTTPoison.get!(url)
 
-    #req = Poison.decode!("{\"name\": \"John\", \"age\": 30}")
     req = Jason.decode!(response.body)
 
     render(conn, :tree, tree_entries: req, path: path, user: user, repo: repo, branch: branch)
