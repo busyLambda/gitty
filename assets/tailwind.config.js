@@ -16,6 +16,10 @@ module.exports = {
     extend: {
       colors: {
         brand: "#FD4F00",
+        surface: "#1c1b25",
+        "surface-900": "#2D2930",
+        "surface-800": "#3B3640",
+        "surface-700": "#3C3947",
       }
     },
   },
