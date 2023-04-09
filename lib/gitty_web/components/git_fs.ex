@@ -10,7 +10,7 @@ defmodule GittyWeb.GitFs do
   def tree(assigns) do
     ~H"""
     <%= for entry <- @tree_entries do %>
-      <div class="flex justify-between p-2 my-1 rounded-md bg-zinc-300">
+      <div class="flex justify-between p-2 my-1 rounded-md bg-surface-700 text-white">
         <a
           class="flex items-center"
           href={
@@ -25,7 +25,7 @@ defmodule GittyWeb.GitFs do
         >
           <%= if Map.get(entry, "entry_type") == to_string("Blob") do %>
             <svg
-              class="h-4 mr-1 fill-zinc-600"
+              class="h-4 mr-1 fill-zinc-400"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 384 512"
             >
@@ -34,7 +34,7 @@ defmodule GittyWeb.GitFs do
             </svg>
           <% else %>
             <svg
-              class="h-4 mr-1 fill-zinc-600"
+              class="h-4 mr-1 fill-zinc-400"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"
             >
