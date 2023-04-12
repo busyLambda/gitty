@@ -1,12 +1,14 @@
 <div class="flex w-screen h-screen bg-surface-700">
-  <div class="grid w-24 h-full bg-surface-500">
+  <div class="grid w-24 h-full bg-surface-500"></div>
 
-  </div>
-
-  <main class="px-4 py-20 w-full sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-8xl">
+  <main class="overflow-auto px-4 py-8 w-full h-full sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-[1500px]">
       <.flash_group flash={@flash} />
       <%= @inner_content %>
     </div>
+    <footer class="mt-8 w-full mx-auto max-w-[1500px]">
+      <hr class="border-surface-400" />
+      <div class="p-5"></div>
+    </footer>
   </main>
 </div>
