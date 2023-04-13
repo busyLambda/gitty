@@ -4,6 +4,7 @@ defmodule Gitty.Accounts.User do
 
   schema "users" do
     field :email, :string
+    field :username, :string
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
@@ -36,9 +37,16 @@ defmodule Gitty.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:email, :password, :username])
+    |> validate_username(opts)
     |> validate_email(opts)
     |> validate_password(opts)
+  end
+
+  defp validate_username(changeset, opts) do
+    changeset
+    |> validate_required([:username])
+    |> validate_length(:username, max: 36)
   end
 
   defp validate_email(changeset, opts) do
@@ -112,7 +120,7 @@ defmodule Gitty.Accounts.User do
       leaks in the logs. If password hashing is not needed and clearing the
       password field is not desired (like when using this changeset for
       validations on a LiveView form), this option can be set to `false`.
-      Defaults to `true`.
+      Defaults to `true.
   """
   def password_changeset(user, attrs, opts \\ []) do
     user
