@@ -16,11 +16,11 @@ defmodule GittyWeb.GitFs do
     latest_commit = Jason.decode!(response.body)
     lc_message = Map.get(latest_commit, "msg")
     lc_id = Map.get(latest_commit, "id")
-    assigns = Map.put assigns, :id, lc_id
-    assigns = Map.put assigns, :msg, lc_message
+    assigns = Map.put(assigns, :id, lc_id)
+    assigns = Map.put(assigns, :msg, lc_message)
 
     ~H"""
-    <div class="overflow-hidden rounded-lg">
+    <div class="overflow-hidden rounded-lg border-surface-500 border-2">
       <div class="p-4 text-white bg-surface-500">
         Latest commit:
         <a
@@ -31,7 +31,7 @@ defmodule GittyWeb.GitFs do
         </a>
       </div>
       <%= for entry <- @tree_entries do %>
-        <div class="flex justify-between p-2 text-white border-t bg-surface-700 hover:bg-surface-400 border-t-surface-400">
+        <div class="flex justify-between p-2 text-white border-t bg-surface-700 hover:bg-surface-500 border-t-surface-400">
           <a
             class="flex items-center hover:text-primary-500 hover:fill-primary-500 fill-surface-300"
             href={
