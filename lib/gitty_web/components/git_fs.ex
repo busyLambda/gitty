@@ -20,7 +20,7 @@ defmodule GittyWeb.GitFs do
     assigns = Map.put(assigns, :msg, lc_message)
 
     ~H"""
-    <div class="overflow-hidden rounded-lg border-surface-500 border-2">
+    <div class="overflow-hidden rounded-lg border-surface-400 border">
       <div class="p-4 text-white bg-surface-500">
         Latest commit:
         <a
