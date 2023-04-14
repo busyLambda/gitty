@@ -44,7 +44,7 @@ defmodule GittyWeb.GitFs do
         }/#{@path}/#{Map.get(entry, "name")}"
     }
           >
-            <div class="w-7">
+            <div class="w-4 mr-2">
               <%= if Map.get(entry, "entry_type") == to_string("Blob") do %>
                 <svg
                   class="mx-auto h-4 fill-inherit"
