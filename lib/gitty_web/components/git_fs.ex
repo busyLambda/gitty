@@ -8,10 +8,23 @@ defmodule GittyWeb.GitFs do
   attr :path, :string
 
   def tree(assigns) do
+    url = "http://localhost:6789/#{assigns.user}/#{assigns.repo}/master/latest_commit"
+    response = HTTPoison.get!(url)
+
+    latest_commit = Jason.decode!(response.body)
+    lc_message = Map.get(latest_commit, "msg")
+    lc_id = Map.get(latest_commit, "id")
+
     ~H"""
     <div class="overflow-hidden rounded-lg">
       <div class="p-4 text-white bg-surface-500">
-        Latest commit
+        Latest commit:
+        <a
+          class="text-primary-500 hover:underline"
+          href={"http://localhost:5000/#{@user}/#{@repo}/commits/#{lc_id}"}
+        >
+          <%= lc_message %>
+        </a>
       </div>
       <%= for entry <- @tree_entries do %>
         <div class="flex justify-between p-2 text-white border-t bg-surface-700 hover:bg-surface-400 border-t-surface-400">
