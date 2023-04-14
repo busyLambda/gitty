@@ -11,9 +11,13 @@ defmodule GittyWeb.GitFs do
     url = "http://localhost:6789/#{assigns.user}/#{assigns.repo}/master/latest_commit"
     response = HTTPoison.get!(url)
 
+    IO.inspect("\n\n\n\n\n\nasd\n\n\n\n\n\n")
+
     latest_commit = Jason.decode!(response.body)
     lc_message = Map.get(latest_commit, "msg")
     lc_id = Map.get(latest_commit, "id")
+    assigns = Map.put assigns, :id, lc_id
+    assigns = Map.put assigns, :msg, lc_message
 
     ~H"""
     <div class="overflow-hidden rounded-lg">
@@ -21,9 +25,9 @@ defmodule GittyWeb.GitFs do
         Latest commit:
         <a
           class="text-primary-500 hover:underline"
-          href={"http://localhost:5000/#{@user}/#{@repo}/commits/#{lc_id}"}
+          href={"http://localhost:5000/#{@user}/#{@repo}/commits/#{@id}"}
         >
-          <%= lc_message %>
+          <%= @msg %>
         </a>
       </div>
       <%= for entry <- @tree_entries do %>
