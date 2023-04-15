@@ -9,7 +9,8 @@ defmodule GittyWeb.GitFs do
   attr :path, :string
 
   def tree(assigns) do
-    {:ok, html, _} = Earmark.as_html("# Markdown\n## md\n### 3\n#### 4\n##### 5")
+    {:ok, html, _} = Earmark.as_html("# README")
+
     IO.inspect(html)
 
     url = "http://localhost:6789/#{assigns.user}/#{assigns.repo}/master/latest_commit"
@@ -81,7 +82,7 @@ defmodule GittyWeb.GitFs do
       <% end %>
     </div>
 
-    <div class="bg-surface-600 rounded-xl mt-4 flex flex-col overflow-hidden border border-surface-400">
+    <div class="bg-surface-600 rounded-xl mt-4 flex flex-col overflow-hidden border border-surface-400 text-white">
       <div id="header" class="p-4 font-bold text-white bg-surface-700">
         README.md
       </div>
