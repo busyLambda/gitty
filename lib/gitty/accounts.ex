@@ -75,9 +75,14 @@ defmodule Gitty.Accounts do
 
   """
   def register_user(attrs) do
-    %User{}
-    |> User.registration_changeset(attrs)
-    |> Repo.insert()
+    changeset =
+      %User{}
+      |> User.registration_changeset(attrs)
+
+    {result, user} = Repo.insert(changeset)
+    Gitty.Profiles.create_profile(%{user_id: user.id})
+
+    {result, user}
   end
 
   @doc """
