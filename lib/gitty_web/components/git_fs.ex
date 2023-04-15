@@ -1,5 +1,6 @@
 defmodule GittyWeb.GitFs do
   use Phoenix.Component
+  use Phoenix.HTML
 
   attr :tree_entries, :list
   attr :user, :string
@@ -8,16 +9,18 @@ defmodule GittyWeb.GitFs do
   attr :path, :string
 
   def tree(assigns) do
+    {:ok, html, _} = Earmark.as_html("# Markdown\n## md\n### 3\n#### 4\n##### 5")
+    IO.inspect(html)
+
     url = "http://localhost:6789/#{assigns.user}/#{assigns.repo}/master/latest_commit"
     response = HTTPoison.get!(url)
-
-    IO.inspect("\n\n\n\n\n\nasd\n\n\n\n\n\n")
 
     latest_commit = Jason.decode!(response.body)
     lc_message = Map.get(latest_commit, "msg")
     lc_id = Map.get(latest_commit, "id")
     assigns = Map.put(assigns, :id, lc_id)
     assigns = Map.put(assigns, :msg, lc_message)
+    assigns = Map.put(assigns, :html, html)
 
     ~H"""
     <div class="overflow-hidden rounded-lg border-surface-400 border">
@@ -76,6 +79,15 @@ defmodule GittyWeb.GitFs do
           </div>
         </div>
       <% end %>
+    </div>
+
+    <div class="bg-surface-600 rounded-xl mt-4 flex flex-col overflow-hidden border border-surface-400">
+      <div id="header" class="p-4 font-bold text-white bg-surface-700">
+        README.md
+      </div>
+      <div id="markdown" class="p-4 border-t border-surface-400">
+        <%= raw(@html) %>
+      </div>
     </div>
     """
   end
