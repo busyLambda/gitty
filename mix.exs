@@ -53,6 +53,7 @@ defmodule Gitty.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:poison, "~> 5.0"},
       {:httpoison, "~> 2.1"},
+      {:earmark, "~> 1.4"}
     ]
   end
 
