@@ -102,6 +102,7 @@ defmodule Gitty.Profiles do
     Profile.changeset(profile, attrs)
   end
 
+  # TODO: Make this into a component.
   def gravatar(email, size, styles \\ "") do
     hash =
       email
@@ -110,8 +111,9 @@ defmodule Gitty.Profiles do
       |> :erlang.md5()
       |> Base.encode16(case: :lower)
 
-    img = "https://www.gravatar.com/avatar/#{hash}?s=#{size}&d=identicon"
-    # img_tag(img)
+    default = URI.encode_www_form("https://benike.monster/static/img/monster.gif")
+
+    img = "https://www.gravatar.com/avatar/#{hash}?s=#{size}&d=#{default}"
     "<img class=\"#{styles}\" src=\"#{img}\"></img>"
   end
 end

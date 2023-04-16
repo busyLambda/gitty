@@ -10,9 +10,10 @@ defmodule GittyWeb.UserSettingsLive do
       <:subtitle>Manage your account email address and password settings</:subtitle>
     </.header>
 
-    <div class="space-y-12 divide-y">
+    <div class="space-y-12 divide-y bg-surface-500">
       <div>
         <.simple_form
+          style="background-color: rgb(40, 44, 52)"
           for={@email_form}
           id="email_form"
           phx-submit="update_email"
@@ -20,8 +21,10 @@ defmodule GittyWeb.UserSettingsLive do
         >
           <.input field={@email_form[:email]} type="email" label="Email" required />
           <.input
+            style="background-color: rgb(40, 44, 52)"
             field={@email_form[:current_password]}
-            name="current_password"
+            name="
+            current_password"
             id="current_password_for_email"
             type="password"
             label="Current password"
@@ -29,7 +32,7 @@ defmodule GittyWeb.UserSettingsLive do
             required
           />
           <:actions>
-            <.button phx-disable-with="Changing...">Change Email</.button>
+            <.button class="bg-success-600" phx-disable-with="Changing...">Change Email</.button>
           </:actions>
         </.simple_form>
       </div>
