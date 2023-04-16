@@ -101,4 +101,17 @@ defmodule Gitty.Profiles do
   def change_profile(%Profile{} = profile, attrs \\ %{}) do
     Profile.changeset(profile, attrs)
   end
+
+  def gravatar(email, size, styles \\ "") do
+    hash =
+      email
+      |> String.trim()
+      |> String.downcase()
+      |> :erlang.md5()
+      |> Base.encode16(case: :lower)
+
+    img = "https://www.gravatar.com/avatar/#{hash}?s=#{size}&d=identicon"
+    # img_tag(img)
+    "<img class=\"#{styles}\" src=\"#{img}\"></img>"
+  end
 end
