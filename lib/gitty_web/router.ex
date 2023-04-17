@@ -72,6 +72,7 @@ defmodule GittyWeb.Router do
 
     live_session :current_user,
       on_mount: [{GittyWeb.UserAuth, :mount_current_user}] do
+      live "/:user", User.UserLive
       live "/users/confirm/:token", UserConfirmationLive, :edit
       live "/users/confirm", UserConfirmationInstructionsLive, :new
     end
