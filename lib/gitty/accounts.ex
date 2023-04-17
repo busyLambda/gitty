@@ -80,6 +80,7 @@ defmodule Gitty.Accounts do
       |> User.registration_changeset(attrs)
 
     {result, user} = Repo.insert(changeset)
+
     Gitty.Profiles.create_profile(%{user_id: user.id})
 
     {result, user}
