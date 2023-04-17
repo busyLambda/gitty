@@ -36,4 +36,13 @@ defmodule GittyWeb.FrontendController do
 
     render(conn, :tree, tree_entries: req, path: path, user: user, repo: repo, branch: branch)
   end
+
+  def commit(conn, %{"user" => user, "repo" => repo, "commit" => commit}) do
+    url = "http://localhost:6789/#{user}/#{repo}/commits/#{commit}"
+    response = HTTPoison.get!(url)
+
+    commit = Jason.decode!(response.body)
+
+    render(conn, :commits, commit: commit, user: user, repo: repo)
+  end
 end

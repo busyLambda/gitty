@@ -82,6 +82,7 @@ defmodule GittyWeb.Router do
 
     get "/", FrontendController, :index
     get "/:user/:repo/", FrontendController, :repository
+    get "/:user/:repo/commits/:commit", FrontendController, :commit
     get "/:user/:repo/:branch/blob/*path", FrontendController, :blob
     get "/:user/:repo/:branch/tree/*path", FrontendController, :tree
   end
