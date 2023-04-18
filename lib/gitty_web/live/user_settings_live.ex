@@ -10,7 +10,8 @@ defmodule GittyWeb.UserSettingsLive do
       <:subtitle>Manage your account email address and password settings</:subtitle>
     </.header>
 
-    <div class="space-y-12 divide-y bg-surface-500">
+    <div class="space-y-12 divide-y">
+    <!-- The f-ing name field apperenty make the live view have a stroke so no email changes for now :3 UWU i am having a mental breakdown -->
       <div>
         <.simple_form
           style="background-color: rgb(40, 44, 52)"
@@ -23,8 +24,6 @@ defmodule GittyWeb.UserSettingsLive do
           <.input
             style="background-color: rgb(40, 44, 52)"
             field={@email_form[:current_password]}
-            name="
-            current_password"
             id="current_password_for_email"
             type="password"
             label="Current password"
