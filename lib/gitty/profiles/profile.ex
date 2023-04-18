@@ -9,6 +9,7 @@ defmodule Gitty.Profiles.Profile do
     field :name, :string
     field :twitter_username, :string
     field :website, :string
+    field :pfp, :id
     field :user_id, :id
 
     timestamps()
