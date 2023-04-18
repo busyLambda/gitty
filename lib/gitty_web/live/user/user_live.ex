@@ -11,7 +11,11 @@ defmodule GittyWeb.User.UserLive do
     <h2><%= @user %></h2>
     <h4><%= @profile.bio %></h4>
     <%= if @profile.pfp do %>
-      <h5>M</h5>
+      <!-- pfp isn't nil -->
+      <h5>We got a profile pic!</h5>
+    <% else %>
+      <!-- pfp is nil -->
+      <%= raw(Gitty.Profiles.gravatar(@email, 100, "w-48 rounded-2xl")) %>
     <% end %>
     """
   end
@@ -27,9 +31,10 @@ defmodule GittyWeb.User.UserLive do
           select: p
       )
 
-    IO.inspect(profile)
+    email = account.email
 
     socket = assign(socket, user: user)
+    socket = assign(socket, email: email)
     socket = assign(socket, profile: profile)
 
     {:ok, socket}
