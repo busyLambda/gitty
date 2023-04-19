@@ -1,4 +1,5 @@
 defmodule GittyWeb.Router do
+  alias GittyWeb.User.ProfileSettingsLive
   use GittyWeb, :router
 
   import GittyWeb.UserAuth
@@ -60,6 +61,7 @@ defmodule GittyWeb.Router do
 
     live_session :require_authenticated_user,
       on_mount: [{GittyWeb.UserAuth, :ensure_authenticated}] do
+      live "/settings", User.ProfileSettingsLive
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
     end
