@@ -10,58 +10,51 @@ defmodule GittyWeb.User.ProfileSettingsLive do
 
   def render(assigns) do
     ~H"""
-    <div class="flex items-center">
-      <%= if @profile.pfp do %>
-        <h1>van</h1>
-      <% else %>
-        <%= raw(Profiles.gravatar(@email, 200, "w-48 rounded-lg mr-4 mb-2")) %>
-      <% end %>
-      <h4 class="mb-8 font-bold">
-        <%= @current_user.username %> - settings
-      </h4>
-    </div>
+    <h4 class="mb-8 font-bold">
+      <%= @current_user.username %> - settings
+    </h4>
     <div class="flex w-full font-medium text-white">
       <div class="mr-3 w-auto">
         <ul class="font-bold">
           <%= if @tab == "one" do %>
-            <li class="p-2 px-4 mb-2 rounded-lg bg-primary-500 text-surface-500">
-              show one
+            <li class="p-2 px-4 mb-2 text-center rounded-lg bg-primary-500 text-surface-500">
+              preferences
             </li>
           <% else %>
-            <li class="mb-2 rounded-lg bg-surface-600 hover:text-primary-500">
+            <li class="mb-2 text-center rounded-lg bg-surface-600 hover:text-primary-500">
               <button
                 class="p-2 px-4"
                 phx-click={JS.show(to: "#one") |> JS.push("switch_tab", value: %{tab: "one"})}
               >
-                show one
+                preferences
               </button>
             </li>
           <% end %>
           <%= if @tab == "two" do %>
-            <li class="p-2 px-4 mb-2 rounded-lg bg-primary-500 text-surface-500">
-              show two
+            <li class="p-2 px-4 mb-2 text-center rounded-lg bg-primary-500 text-surface-500">
+              profile
             </li>
           <% else %>
-            <li class="mb-2 rounded-lg bg-surface-600 hover:text-primary-500">
+            <li class="mb-2 text-center rounded-lg bg-surface-600 hover:text-primary-500">
               <button
                 class="p-2 px-4"
                 phx-click={JS.show(to: "#two") |> JS.push("switch_tab", value: %{tab: "two"})}
               >
-                show two
+                profile
               </button>
             </li>
           <% end %>
           <%= if @tab == "three" do %>
-            <li class="p-2 px-4 rounded-lg bg-primary-500 text-surface-500">
-              show three
+            <li class="p-2 px-4 text-center rounded-lg bg-primary-500 text-surface-500">
+              account
             </li>
           <% else %>
-            <li class="rounded-lg bg-surface-600 hover:text-primary-500">
+            <li class="text-center rounded-lg bg-surface-600 hover:text-primary-500">
               <button
                 class="p-2 px-4"
                 phx-click={JS.show(to: "#three") |> JS.push("switch_tab", value: %{tab: "three"})}
               >
-                show three
+                account
               </button>
             </li>
           <% end %>
@@ -72,7 +65,7 @@ defmodule GittyWeb.User.ProfileSettingsLive do
           <.tab_one />
         <% end %>
         <%= if @tab == "two" do %>
-          <.tab_two />
+          <.tab_two pfp={@profile.pfp} email={@email}/>
         <% end %>
         <%= if @tab == "three" do %>
           <.tab_three />
@@ -89,10 +82,11 @@ defmodule GittyWeb.User.ProfileSettingsLive do
 
     profile =
       Repo.one!(
-        from p in Profile,
+        from(p in Profile,
           join: a in Accounts.User,
           where: p.user_id == a.id and a.id == ^account.id,
           select: p
+        )
       )
 
     socket = assign(socket, tab: "one")
@@ -111,9 +105,15 @@ defmodule GittyWeb.User.ProfileSettingsLive do
     """
   end
 
+  attr :pfp, :string
+  attr :email, :string
   def tab_two(assigns) do
     ~H"""
-    <p id="two">tab two displayed</p>
+    <%= if @pfp do %>
+      <h1>van</h1>
+    <% else %>
+      <%= raw(Profiles.gravatar(@email, 200, "w-48 rounded-lg mr-4 mb-2")) %>
+    <% end %>
     """
   end
 
