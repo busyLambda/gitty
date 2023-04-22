@@ -9,19 +9,28 @@ defmodule GittyWeb.GitFs do
   attr :path, :string
 
   def tree(assigns) do
-    {:ok, html, _} = Earmark.as_html("# README")
+    readme = Enum.find(assigns.tree_entries, fn e -> e["name"] == to_string("README.md") end)
 
-    IO.inspect(html)
+    path = readme["path"]
+
+    url = "http://localhost:6789/#{assigns.user}/#{assigns.repo}/#{assigns.branch}/blob/#{path}"
+    response = HTTPoison.get!(url)
+    req = Poison.decode!(response.body)
+
+    contents = Map.get(req, "contents")
+    {:ok, readme_html, _} = Earmark.as_html(contents)
 
     url = "http://localhost:6789/#{assigns.user}/#{assigns.repo}/master/latest_commit"
     response = HTTPoison.get!(url)
 
     latest_commit = Jason.decode!(response.body)
+
     lc_message = Map.get(latest_commit, "msg")
     lc_id = Map.get(latest_commit, "id")
+
+    assigns = Map.put(assigns, :readme, readme_html)
     assigns = Map.put(assigns, :id, lc_id)
     assigns = Map.put(assigns, :msg, lc_message)
-    assigns = Map.put(assigns, :html, html)
 
     ~H"""
     <div class="overflow-hidden rounded-lg border-surface-400 border">
@@ -87,7 +96,7 @@ defmodule GittyWeb.GitFs do
         README.md
       </div>
       <div id="markdown" class="p-4 border-t border-surface-400">
-        <%= raw(@html) %>
+        <%= raw(@readme) %>
       </div>
     </div>
     """
