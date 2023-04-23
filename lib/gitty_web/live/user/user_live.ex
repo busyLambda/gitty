@@ -17,7 +17,7 @@ defmodule GittyWeb.User.UserLive do
               <h5>We got a profile pic!</h5>
             <% else %>
               <!-- pfp is nil -->
-              <%= raw(Gitty.Profiles.gravatar(@email, 100, "w-full mb-4 rounded-2xl")) %>
+              <%= raw(Gitty.Profiles.gravatar(@email, 500, "w-full mb-4 rounded-2xl")) %>
             <% end %>
           </div>
           <h4><%= @user %></h4>
