@@ -9,16 +9,23 @@ defmodule GittyWeb.GitFs do
   attr :path, :string
 
   def tree(assigns) do
-    readme = Enum.find(assigns.tree_entries, fn e -> e["name"] == to_string("README.md") end)
+    assigns =
+      case Enum.find(assigns.tree_entries, fn e -> e["name"] == to_string("README.md") end) do
+        nil ->
+          Map.put(assigns, :readme, nil)
 
-    path = readme["path"]
+        readme ->
+          path = readme["path"]
 
-    url = "http://localhost:6789/#{assigns.user}/#{assigns.repo}/#{assigns.branch}/blob/#{path}"
-    response = HTTPoison.get!(url)
-    req = Poison.decode!(response.body)
+          url =
+            "http://localhost:6789/#{assigns.user}/#{assigns.repo}/#{assigns.branch}/blob/#{path}"
 
-    contents = Map.get(req, "contents")
-    {:ok, readme_html, _} = Earmark.as_html(contents)
+          response = HTTPoison.get!(url)
+          req = Poison.decode!(response.body)
+          contents = Map.get(req, "contents")
+          {:ok, readme_html, _} = Earmark.as_html(contents)
+          Map.put(assigns, :readme, readme_html)
+      end
 
     url = "http://localhost:6789/#{assigns.user}/#{assigns.repo}/master/latest_commit"
     response = HTTPoison.get!(url)
@@ -28,7 +35,6 @@ defmodule GittyWeb.GitFs do
     lc_message = Map.get(latest_commit, "msg")
     lc_id = Map.get(latest_commit, "id")
 
-    assigns = Map.put(assigns, :readme, readme_html)
     assigns = Map.put(assigns, :id, lc_id)
     assigns = Map.put(assigns, :msg, lc_message)
 
@@ -91,14 +97,16 @@ defmodule GittyWeb.GitFs do
       <% end %>
     </div>
 
-    <div class="bg-surface-600 rounded-xl mt-4 flex flex-col overflow-hidden border border-surface-400 text-white">
-      <div id="header" class="p-4 font-bold text-white bg-surface-700">
-        README.md
+    <%= if @readme != nil do %>
+      <div class="bg-surface-600 rounded-xl mt-4 flex flex-col overflow-hidden border border-surface-400 text-white">
+        <div id="header" class="p-4 font-bold text-white bg-surface-700">
+          README.md
+        </div>
+        <div id="markdown" class="p-4 border-t border-surface-400">
+          <%= raw(@readme) %>
+        </div>
       </div>
-      <div id="markdown" class="p-4 border-t border-surface-400">
-        <%= raw(@readme) %>
-      </div>
-    </div>
+    <% end %>
     """
   end
 end
