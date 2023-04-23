@@ -39,7 +39,7 @@ defmodule GittyWeb.GitFs do
     assigns = Map.put(assigns, :msg, lc_message)
 
     ~H"""
-    <div class="overflow-hidden rounded-lg border-surface-400 border">
+    <div class="overflow-hidden rounded-lg border border-surface-400">
       <div class="p-4 text-white bg-surface-500">
         Latest commit:
         <a
@@ -50,7 +50,7 @@ defmodule GittyWeb.GitFs do
         </a>
       </div>
       <%= for entry <- @tree_entries do %>
-        <div class="flex justify-between p-2 text-white border-t bg-surface-700 hover:bg-surface-500 border-t-surface-400">
+        <div class="flex justify-between p-2 text-white border-t bg-surface-800 hover:bg-surface-500 border-t-surface-400">
           <a
             class="flex items-center hover:text-primary-500 hover:fill-primary-500 fill-surface-300"
             href={
@@ -63,7 +63,7 @@ defmodule GittyWeb.GitFs do
         }/#{@path}/#{Map.get(entry, "name")}"
     }
           >
-            <div class="w-4 mr-2">
+            <div class="mr-2 w-4">
               <%= if Map.get(entry, "entry_type") == to_string("Blob") do %>
                 <svg
                   class="mx-auto h-4 fill-inherit"
@@ -98,8 +98,8 @@ defmodule GittyWeb.GitFs do
     </div>
 
     <%= if @readme != nil do %>
-      <div class="bg-surface-600 rounded-xl mt-4 flex flex-col overflow-hidden border border-surface-400 text-white">
-        <div id="header" class="p-4 font-bold text-white bg-surface-700">
+      <div class="flex overflow-hidden flex-col mt-4 text-white rounded-xl border bg-surface-800 border-surface-400">
+        <div id="header" class="p-4 font-bold text-white bg-surface-500">
           README.md
         </div>
         <div id="markdown" class="p-4 border-t border-surface-400">

@@ -1,16 +1,10 @@
 <div class="flex flex-col w-screen h-screen bg-surface-900">
-  <ul class="flex relative z-10 gap-4 justify-end items-center px-4 text-white sm:px-6 lg:px-8 bg-surface-600 font-semibold">
+  <ul class="flex relative z-10 gap-4 justify-end items-center px-4 font-semibold text-white sm:px-6 lg:px-8 bg-surface-600">
     <%= if @current_user do %>
-      <li class="text-medium leading-6">
-        <%= @current_user.username %>
-      </li>
-      <li>
-        <%= raw(gravatar(@current_user.email, 55, "rounded-lg m-3 w-12")) %>
-      </li>
       <li>
         <.link
           href={~p"/users/settings"}
-          class="text-medium leading-6 font-semibold hover:text-zinc-700"
+          class="font-semibold leading-6 text-medium hover:text-zinc-700"
         >
           Settings
         </.link>
@@ -19,16 +13,22 @@
         <.link
           href={~p"/users/log_out"}
           method="delete"
-          class="text-medium leading-6 font-semibold hover:text-zinc-700"
+          class="font-semibold leading-6 text-medium hover:text-zinc-700"
         >
           Log out
         </.link>
+      </li>
+      <li class="leading-6 text-medium">
+        <%= @current_user.username %>
+      </li>
+      <li>
+        <%= raw(gravatar(@current_user.email, 55, "rounded-lg my-3 w-12")) %>
       </li>
     <% else %>
       <li>
         <.link
           href={~p"/users/register"}
-          class="text-medium leading-6 font-semibold hover:text-zinc-700"
+          class="font-semibold leading-6 text-medium hover:text-zinc-700"
         >
           Register
         </.link>
@@ -36,7 +36,7 @@
       <li>
         <.link
           href={~p"/users/log_in"}
-          class="text-medium leading-6 font-semibold hover:text-zinc-700"
+          class="font-semibold leading-6 text-medium hover:text-zinc-700"
         >
           Log in
         </.link>
