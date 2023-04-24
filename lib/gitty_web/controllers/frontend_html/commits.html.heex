@@ -1,5 +1,17 @@
 <div>
-    <h5>ID: <%= Map.get(@commit, "id") %> </h5>
-    <h5>Email: <%= Map.get(@commit, "email") %> </h5>
-    <h5>Message: <%= Map.get(@commit, "msg") %> </h5>
+  <div class="flex items-center mb-2">
+    <div class="flex items-center w-14">
+      <%= if @profile.pfp do %>
+        <!-- pfp isn't nil -->
+        <h5>We got a profile pic!</h5>
+      <% else %>
+        <!-- pfp is nil -->
+        <%= raw(Gitty.Profiles.gravatar(@email, 150, "w-full rounded-md")) %>
+      <% end %>
+    </div>
+    <a href={"http://localhost:5000/#{@username}"} class="ml-4 text-xl font-semibold text-primary-500 hover:underline"><%= @username %></a>
+  </div>
+  <h5>ID: <%= Map.get(@commit, "id") %></h5>
+  <h5>Email: <%= Map.get(@commit, "email") %></h5>
+  <h5>Message: <%= Map.get(@commit, "msg") %></h5>
 </div>

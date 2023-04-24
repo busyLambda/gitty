@@ -1,5 +1,10 @@
 defmodule GittyWeb.FrontendController do
   use GittyWeb, :controller
+  alias Gitty.Accounts
+  alias Gitty.Repo
+  alias Gitty.Profiles.Profile
+
+  import Ecto.Query
 
   def index(conn, _params) do
     render(conn, :index)
@@ -43,6 +48,19 @@ defmodule GittyWeb.FrontendController do
 
     commit = Jason.decode!(response.body)
 
-    render(conn, :commits, commit: commit, user: user, repo: repo)
+    email = commit["email"]
+
+    account = Repo.one(from(a in Accounts.User, where: a.email == ^email))
+
+    profile =
+      Repo.one!(
+        from(p in Profile,
+          join: a in Accounts.User,
+          where: p.user_id == a.id and a.id == ^account.id,
+          select: p
+        )
+      )
+
+    render(conn, :commits, commit: commit, user: user, repo: repo, email: account.email, profile: profile, username: account.username)
   end
 end
