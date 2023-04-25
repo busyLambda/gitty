@@ -5,4 +5,4 @@ As of now this project is planned to include both the frontend and the backend t
 
 ## Images
 
-[repo](./images/repo.png)
+![repo](./images/repo.png)
