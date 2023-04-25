@@ -86,7 +86,7 @@ defmodule GittyWeb.GitFs do
             </div>
             <%= Map.get(entry, "name") %>
           </a>
-          <a href={"http://localhost:5000/#{@user}/#{@repo}/commits/#{Map.get(entry, "latest_commit_id")}"}>
+          <a class="text-primary-500 hover:underline" href={"http://localhost:5000/#{@user}/#{@repo}/commits/#{Map.get(entry, "latest_commit_id")}"}>
             <%= "#{String.slice(Map.get(entry, "latest_commit_msg"), 0..20)}" %>
           </a>
           <div>
