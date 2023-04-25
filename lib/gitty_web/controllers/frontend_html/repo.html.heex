@@ -1,23 +1,23 @@
-<div class="flex justify-between">
-  <div class="flex items-center p-3 w-auto text-xl font-bold text-white rounded-lg bg-surface-500">
+<div class="flex justify-between sm:flex-row flex-col mb-4 md:mb-0">
+  <div class="flex items-center p-3 sm:w-auto w-full text-xl font-bold text-white rounded-lg bg-surface-500 mb-2 sm:mb-0 justify-center">
     <a class="underline text-primary-500" href={"http://localhost:5000/#{@user}"}>
       <%= @user %>
     </a>
-    <span>&rightarrow;</span>
+    <span class="mx-2">&rightarrow;</span>
     <a class="underline text-primary-500" href={"http://localhost:5000/#{@user}/#{@repo}"}>
       <%= @repo %>
     </a>
   </div>
 
-  <div class="flex items-center p-3 w-auto font-bold rounded-lg text-surface-500 text-cl bg-surface-500">
+  <div class="flex items-center p-3 w-auto font-bold rounded-lg text-surface-500 text-cl bg-surface-500 justify-center">
     <button class="p-1 px-6 rounded-full bg-warning-500">
       Star
     </button>
   </div>
 </div>
 
-<div class="flex my-2">
-  <div class="w-[70%]">
+<div class="flex my-2 flex-col md:flex-row">
+  <div class="w-full md:w-[70%]">
     <GittyWeb.GitFs.tree
       tree_entries={@tree_entries}
       user={@user}
@@ -27,7 +27,7 @@
     />
   </div>
 
-  <div class="w-[30%] rounded-lg bg-surface-600 border border-surface-400 p-4 ml-4 h-auto">
+  <div class="w-full md:w-[30%] rounded-lg bg-surface-600 border border-surface-400 p-4 md:ml-4 mb-4 md:mb-0 h-auto order-first md:order-last">
     <h3>about</h3>
     <hr>
   </div>

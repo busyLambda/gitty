@@ -28,7 +28,7 @@ defmodule GittyWeb.User.UserLive do
       <div class="flex flex-col w-[800px]">
         <div class="grid grid-cols-2 gap-2">
           <div class="flex flex-col p-2 px-3 w-full rounded-lg border bg-surface-600 border-surface-400">
-            <a class="text-lg font-semibold hover:underline text-primary-500">linux</a>
+            <a href="cocaineBear/code" class="text-lg font-semibold hover:underline text-primary-500">code</a>
             <div class="flex items-center">
               <div class="mr-1 w-4 h-4 bg-blue-600 rounded-full"></div>
               <span class="text-center text-white">clang</span>
