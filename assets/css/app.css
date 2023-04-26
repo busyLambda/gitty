@@ -2,6 +2,8 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@import "prismjs/themes/prism-tomorrow.css";
+
 /* This file is for your main application CSS */
 
 h1,h2,h3,h4,h5 {

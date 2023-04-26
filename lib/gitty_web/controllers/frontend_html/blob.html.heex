@@ -15,3 +15,15 @@
 <code>
   <pre class="p-1 rounded-md bg-zinc-300"><%= @contents %></pre>
 </code>
+
+<% code = ~s"""
+  defmodule MyModule do
+    #stuff
+  end
+  """%>
+<section class="row">
+  <article class="column">
+    <code class="language-elixir">Enum.at([:a, :b, :c], 1) |> IO.puts()</code>
+    <pre><code class="language-elixir"><%= code %></code></pre>
+  </article>
+</section>
